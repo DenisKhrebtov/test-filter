@@ -13,7 +13,7 @@ export function App() {
 
   return (
     <div>
-      <Title text={'Product list'} />
+      <Title text={'Product list:)'} />
       <ItemList />
     </div>
   );
