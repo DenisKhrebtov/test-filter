@@ -1,23 +1,30 @@
 import { useSelector } from 'react-redux';
 import { selectProducts } from '../../redux/selectors';
 
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+
+import { StyledTable } from './ItemList.styled';
+
 export const ItemList = () => {
   const products = useSelector(selectProducts);
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Images</th>
-          <th>Rating</th>
-          <th>Stock</th>
-          <th>Category</th>
-        </tr>
-      </thead>
-      <tbody>
+    <StyledTable>
+      <TableHead>
+        <TableRow>
+          <TableCell>ID</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>Description</TableCell>
+          <TableCell>Price</TableCell>
+          <TableCell>Images</TableCell>
+          <TableCell>Rating</TableCell>
+          <TableCell>Stock</TableCell>
+          <TableCell>Category</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {products.map(
           ({
             id,
@@ -29,21 +36,39 @@ export const ItemList = () => {
             stock,
             category,
           }) => (
-            <tr key={id}>
-              <td>{id}</td>
-              <td>{title}</td>
-              <td>{description}</td>
-              <td>{price}</td>
-              <td>
-                <img src={images[0]} alt={title} />
-              </td>
-              <td>{rating}</td>
-              <td>{stock}</td>
-              <td>{category}</td>
-            </tr>
+            <TableRow key={id}>
+              <TableCell component="th" scope="row">
+                {id}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {title}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {description}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {price} $
+              </TableCell>
+              <TableCell component="th" scope="row">
+                <img
+                  src={images[0]}
+                  alt={title}
+                  style={{ width: '300px', height: 'auto' }}
+                />
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {rating}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {stock}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {category}
+              </TableCell>
+            </TableRow>
           )
         )}
-      </tbody>
-    </table>
+      </TableBody>
+    </StyledTable>
   );
 };

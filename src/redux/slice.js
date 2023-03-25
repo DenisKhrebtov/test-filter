@@ -9,7 +9,7 @@ const productsSlice = createSlice({
     error: null,
   },
   extraReducers: {
-    [getProducts.pending](state, action) {
+    [getProducts.pending](state) {
       state.isLoading = true;
     },
     [getProducts.fulfilled](state, { payload }) {

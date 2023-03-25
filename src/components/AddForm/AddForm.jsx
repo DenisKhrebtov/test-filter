@@ -1,5 +1,13 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
+
+import {
+  StyledForm,
+  StyledLabel,
+  StyledField,
+  ErrorInfo,
+  SubmitButton,
+} from './AddForm.styled';
 
 const currentYear = new Date().getFullYear();
 
@@ -40,10 +48,10 @@ export const AddForm = () => {
       }}
     >
       {({ errors, touched }) => (
-        <Form>
-          <label>
+        <StyledForm>
+          <StyledLabel>
             Product name
-            <Field
+            <StyledField
               type="text"
               name="name"
               placeholder="For example `Iphone`"
@@ -51,10 +59,11 @@ export const AddForm = () => {
               //   onBlur={handleBlur}
               //   value={values.email}
             />
-          </label>
-          <label>
+          </StyledLabel>
+          <ErrorInfo component="div" name="name" />
+          <StyledLabel>
             Author name
-            <Field
+            <StyledField
               type="text"
               name="author"
               placeholder="For example `Elon Musk`"
@@ -62,10 +71,11 @@ export const AddForm = () => {
               //   onBlur={handleBlur}
               //   value={values.email}
             />
-          </label>
-          <label>
+          </StyledLabel>
+          <ErrorInfo component="div" name="author" />
+          <StyledLabel>
             Year of publication
-            <Field
+            <StyledField
               type="text"
               name="year"
               placeholder="For example `1992`"
@@ -73,24 +83,23 @@ export const AddForm = () => {
               //   onBlur={handleBlur}
               //   value={values.email}
             />
-          </label>
-          <label>
+          </StyledLabel>
+          <ErrorInfo component="div" name="year" />
+          <StyledLabel>
             Rating
-            <Field
+            <StyledField
               type="number"
               name="rating"
+              max="5"
               placeholder="For example `1.24`"
               //   onChange={handleChange}
               //   onBlur={handleBlur}
               //   value={values.email}
             />
-          </label>
-          <div>{errors.name}</div>
-          <div>{errors.author}</div>
-          <div>{errors.year}</div>
-          <div>{errors.rating}</div>
-          <button type="submit">Submit</button>
-        </Form>
+          </StyledLabel>
+          <ErrorInfo component="div" name="rating" />
+          <SubmitButton type="submit">Submit</SubmitButton>
+        </StyledForm>
       )}
     </Formik>
   );

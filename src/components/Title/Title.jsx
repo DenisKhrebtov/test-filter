@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-
-export const Title = ({ text }) => <h1>{text}</h1>;
+import { MainTitle } from './Title.styled';
+export const Title = ({ text }) => <MainTitle>{text}</MainTitle>;
 
 Title.propTypes = {
   text: PropTypes.string.isRequired,

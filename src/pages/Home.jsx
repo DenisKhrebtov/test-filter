@@ -1,13 +1,18 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../redux/operation';
+
+import RingLoader from 'react-spinners/RingLoader';
 
 import { Title } from '../components/Title/Title';
 import { ItemList } from '../components/ItemList/ItemList';
-import { Link } from 'react-router-dom';
+import { SearchField } from 'components/SearchField/SearchField';
+import { selectIsLoading } from 'redux/selectors';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  console.log(isLoading);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -16,8 +21,8 @@ const Home = () => {
   return (
     <>
       <Title text={'Product list'} />
-      <Link to={'/add-product'}>Add new product</Link>
-      <ItemList />;
+      <SearchField />
+      {isLoading ? <RingLoader /> : <ItemList />};
     </>
   );
 };
