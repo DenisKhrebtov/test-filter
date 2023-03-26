@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectProducts } from '../../redux/selectors';
+import { selectFilter, selectProducts } from '../../redux/selectors';
 
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -10,6 +10,15 @@ import { StyledTable } from './ItemList.styled';
 
 export const ItemList = () => {
   const products = useSelector(selectProducts);
+  const filter = useSelector(selectFilter);
+
+  const filterProducts = () =>
+    products.filter(
+      product =>
+        product.title.toLowerCase().includes(filter) ||
+        product.category.toLowerCase().includes(filter)
+    );
+
   return (
     <StyledTable>
       <TableHead>
@@ -25,7 +34,7 @@ export const ItemList = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {products.map(
+        {filterProducts().map(
           ({
             id,
             title,

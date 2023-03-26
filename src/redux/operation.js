@@ -15,3 +15,16 @@ export const getProducts = createAsyncThunk(
     }
   }
 );
+
+// export const addProduct = createAsyncThunk(
+//   'products/addProduct',
+//   async (body, thunkAPI) => {
+//     console.log(body);
+//     try {
+//       const response = await axios.post('/add', body);
+//       return response.data;
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );

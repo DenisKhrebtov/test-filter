@@ -1,4 +1,7 @@
 import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { addProduct } from 'redux/slices/myProductSlice';
+
 import * as Yup from 'yup';
 
 import {
@@ -12,7 +15,7 @@ import {
 const currentYear = new Date().getFullYear();
 
 const AddSchema = Yup.object().shape({
-  name: Yup.string()
+  title: Yup.string()
     .min(2, 'Too Short!')
     .max(20, 'Too Long!')
     .required('Name is required'),
@@ -26,17 +29,24 @@ const AddSchema = Yup.object().shape({
     .max(currentYear, `Year cannot be later than ${currentYear}`)
     .required('Year is required'),
   rating: Yup.number()
-    .min(1, 'Rating should be written')
-    .moreThan(1, 'Rating should be more than 1')
+    .min(0, 'Rating should be written')
+    .moreThan(0, 'Rating should be more than 0')
     .lessThan(5, 'Rating can be maximum 5')
     .required('Rating is required'),
 });
 
 export const AddForm = () => {
+  const dispatch = useDispatch();
+
+  const onSubmit = value => {
+    const normalizeRating = +value.rating.toFixed(2);
+    dispatch(addProduct({ ...value, rating: normalizeRating }));
+  };
+
   return (
     <Formik
       initialValues={{
-        name: '',
+        title: '',
         author: '',
         year: '',
         rating: 0,
@@ -44,7 +54,7 @@ export const AddForm = () => {
       validationSchema={AddSchema}
       onSubmit={values => {
         // same shape as initial values
-        console.log(values);
+        onSubmit(values);
       }}
     >
       {({ errors, touched }) => (
@@ -53,14 +63,14 @@ export const AddForm = () => {
             Product name
             <StyledField
               type="text"
-              name="name"
+              name="title"
               placeholder="For example `Iphone`"
               //   onChange={handleChange}
               //   onBlur={handleBlur}
               //   value={values.email}
             />
           </StyledLabel>
-          <ErrorInfo component="div" name="name" />
+          <ErrorInfo component="div" name="title" />
           <StyledLabel>
             Author name
             <StyledField
@@ -92,9 +102,7 @@ export const AddForm = () => {
               name="rating"
               max="5"
               placeholder="For example `1.24`"
-              //   onChange={handleChange}
               //   onBlur={handleBlur}
-              //   value={values.email}
             />
           </StyledLabel>
           <ErrorInfo component="div" name="rating" />

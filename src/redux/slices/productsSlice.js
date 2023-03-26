@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProducts } from './operation';
+import { getProducts, addProduct } from '../operation';
 
 const productsSlice = createSlice({
   name: 'products',
@@ -20,6 +20,18 @@ const productsSlice = createSlice({
     [getProducts.rejected](state) {
       state.isRefreshing = false;
     },
+    // [addProduct.pending](state) {
+    //   state.isLoading = true;
+    // },
+    // [addProduct.fulfilled](state, { payload }) {
+    //   console.log(payload);
+    //   state.items.push(payload);
+    //   state.error = null;
+    //   state.isLoading = false;
+    // },
+    // [addProduct.rejected](state) {
+    //   state.isRefreshing = false;
+    // },
   },
 });
 
