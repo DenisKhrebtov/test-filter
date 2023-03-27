@@ -12,7 +12,6 @@ import { selectIsLoading } from 'redux/selectors';
 const Home = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-  console.log(isLoading);
 
   useEffect(() => {
     dispatch(getProducts());

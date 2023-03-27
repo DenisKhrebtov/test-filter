@@ -31,16 +31,19 @@ const AddSchema = Yup.object().shape({
   rating: Yup.number()
     .min(0, 'Rating should be written')
     .moreThan(0, 'Rating should be more than 0')
-    .lessThan(5, 'Rating can be maximum 5')
+    .lessThan(5.0001, 'Rating can be maximum 5')
     .required('Rating is required'),
 });
 
 export const AddForm = () => {
   const dispatch = useDispatch();
 
-  const onSubmit = value => {
+  const onSubmit = (value, resetForm) => {
     const normalizeRating = +value.rating.toFixed(2);
-    dispatch(addProduct({ ...value, rating: normalizeRating }));
+    dispatch(
+      addProduct({ ...value, rating: normalizeRating, id: Math.random() })
+    );
+    resetForm();
   };
 
   return (
@@ -52,12 +55,11 @@ export const AddForm = () => {
         rating: 0,
       }}
       validationSchema={AddSchema}
-      onSubmit={values => {
-        // same shape as initial values
-        onSubmit(values);
+      onSubmit={(values, { resetForm }) => {
+        onSubmit(values, resetForm);
       }}
     >
-      {({ errors, touched }) => (
+      {({ isSubmitting }) => (
         <StyledForm>
           <StyledLabel>
             Product name
@@ -65,9 +67,6 @@ export const AddForm = () => {
               type="text"
               name="title"
               placeholder="For example `Iphone`"
-              //   onChange={handleChange}
-              //   onBlur={handleBlur}
-              //   value={values.email}
             />
           </StyledLabel>
           <ErrorInfo component="div" name="title" />
@@ -77,9 +76,6 @@ export const AddForm = () => {
               type="text"
               name="author"
               placeholder="For example `Elon Musk`"
-              //   onChange={handleChange}
-              //   onBlur={handleBlur}
-              //   value={values.email}
             />
           </StyledLabel>
           <ErrorInfo component="div" name="author" />
@@ -89,9 +85,6 @@ export const AddForm = () => {
               type="text"
               name="year"
               placeholder="For example `1992`"
-              //   onChange={handleChange}
-              //   onBlur={handleBlur}
-              //   value={values.email}
             />
           </StyledLabel>
           <ErrorInfo component="div" name="year" />
@@ -100,13 +93,14 @@ export const AddForm = () => {
             <StyledField
               type="number"
               name="rating"
-              max="5"
+              max="6"
               placeholder="For example `1.24`"
-              //   onBlur={handleBlur}
             />
           </StyledLabel>
           <ErrorInfo component="div" name="rating" />
-          <SubmitButton type="submit">Submit</SubmitButton>
+          <SubmitButton type="submit" disabled={isSubmitting}>
+            Submit
+          </SubmitButton>
         </StyledForm>
       )}
     </Formik>

@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
+
 import { ErrorMessage, Field, Form } from 'formik';
 
 export const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 40px;
 `;
 
 export const StyledLabel = styled.label`

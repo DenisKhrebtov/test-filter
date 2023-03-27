@@ -5,7 +5,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import RingLoader from 'react-spinners/RingLoader';
+
+import { Loader } from 'components/Loader';
 
 import { Logo, AddLink, Wrapper } from './App.styled';
 
@@ -28,7 +29,7 @@ export function App() {
           )}
         </Toolbar>
       </AppBar>
-      <Suspense fallback={<RingLoader />}>
+      <Suspense fallback={<Loader />}>
         <Wrapper>
           <Routes>
             <Route path="/" element={<Home />} />
