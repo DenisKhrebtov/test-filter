@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilter } from 'redux/selectors';
 import { getFilteredProducts } from 'redux/slices/filterSlice';
+
 import { Wrapper, Search } from './SearchField.styled';
 
 export const SearchField = () => {
