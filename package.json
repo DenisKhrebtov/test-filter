@@ -2,6 +2,7 @@
   "name": "test-filter",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://deniskhrebtov.github.io/test-filter/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
